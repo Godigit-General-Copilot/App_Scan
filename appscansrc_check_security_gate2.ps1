@@ -41,44 +41,11 @@ $aseAppAtrib = $(Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_tok
 $secGw=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.name -eq "Security Gate" } | Select-Object -ExpandProperty value)
 
 $sevSecGw=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.name -eq "Severity Sec Gate" } | Select-Object -ExpandProperty value)
- 
-# Normalize ASE severity values
-
-$sevSecGw = $sevSecGw.Trim()
- 
-if ($sevSecGw -eq "High Issues") {
-
-    $sevSecGw = "highIssues"
-
-}
-
-elseif ($sevSecGw -eq "Medium Issues") {
-
-    $sevSecGw = "mediumIssues"
-
-}
-
-elseif ($sevSecGw -eq "Low Issues") {
-
-    $sevSecGw = "lowIssues"
-
-}
-
-elseif ($sevSecGw -eq "Total Issues") {
-
-    $sevSecGw = "totalIssues"
-
-}
-
-else {
-
-    Write-Error "Unknown Severity Gate value from ASE: $sevSecGw"
-
-    exit 1
-
-}
- 
+  
 $maxIssuesAllowed=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.name -eq "Build Failure Amount" } | Select-Object -ExpandProperty value)
+
+$sevSecGw = $env:SEV_SEC_GW
+$maxIssuesAllowed = [int]$env:MAX_ISSUES_ALLOWED
  
 Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"} -Uri "https://$aseHostname`:9443/ase/api/logout" -SkipCertificateCheck | Out-Null
  
