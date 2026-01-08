@@ -92,3 +92,24 @@ Write-Host "Security Gate enabled."
 # -------------------------------
 # DEFINITIVE HIGH ONLY (critical fix)
 # -------------------------------
+$highIssues = ($xml.AssessmentRun.FindingSummary.Definitive.High) -as [int]
+if ($highIssues -eq $null) { $highIssues = 0 }
+
+Write-Host "There is $highIssues definitive high issues."
+Write-Host "The company policy permits less than $maxIssuesAllowed highIssues severity."
+
+# -------------------------------
+# Security Gate logic (HIGH ONLY)
+# -------------------------------
+if ($sevSecGw -eq "highIssues" -and $highIssues -gt $maxIssuesAllowed) {
+    Write-Host "Security Gate build failed – Definitive High issues detected"
+    exit 1
+}
+else {
+    Write-Host "Security Gate passed – No Definitive High issues"
+}
+
+# -------------------------------
+# Optional cleanup
+# -------------------------------
+# Remove-Item -Path $workingDirectory\* -Recurse -Exclude *.pdf,*.xml,*.ozasmt
