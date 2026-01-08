@@ -63,7 +63,7 @@ write-host "Security Gate enabled.";
 
 [XML]$xml=Get-Content $aseAppName-$BuildNumber.ozasmt
 
-[int]$highIssues = $xml.AssessmentRun.AssessmentStats.definitive_high_finding
+[int]$highIssues = $xml.AssessmentRun.AssessmentStats.total_high_finding
 
 [int]$mediumIssues = $xml.AssessmentRun.AssessmentStats.total_med_finding
 
