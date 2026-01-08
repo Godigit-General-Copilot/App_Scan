@@ -92,11 +92,10 @@ Write-Host "Security Gate enabled."
 # -------------------------------
 # DEFINITIVE HIGH ONLY (critical fix)
 # -------------------------------
-$highIssues = ($xml.SelectNodes("//Finding[@severity='High' and @certainty='Definitive']")).Count
-#$highIssues = ($xml.AssessmentRun.FindingSummary.Definitive.High) -as [int]
+$highIssues = ($xml.SelectNodes("//Finding[@severity='High' and Confidence='High']")).Count
 if ($highIssues -eq $null) { $highIssues = 0 }
 
-Write-Host "There is $highIssues definitive high issues."
+Write-Host "There is $highIssues definitive high issues now."
 Write-Host "The company policy permits less than $maxIssuesAllowed highIssues severity."
 
 # -------------------------------
