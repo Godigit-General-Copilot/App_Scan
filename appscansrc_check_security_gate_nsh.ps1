@@ -73,7 +73,7 @@ write-host "Security Gate enabled.";
 
 $maxIssuesAllowed = $maxIssuesAllowed -as [int]
  
-write-host "There is $highIssues high issues, $mediumIssues medium issues and $lowIssues low issues."
+write-host "There is $highIssues definitive high issues, $mediumIssues medium issues and $lowIssues low issues."
 
 write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
  
