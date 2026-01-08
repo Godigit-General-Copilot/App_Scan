@@ -55,3 +55,23 @@ $aseAppAtrib = (
         -SkipCertificateCheck |
     ConvertFrom-Json
 )
+
+$secGw = (
+    $aseAppAtrib.attributeCollection.attributeArray |
+    Where-Object { $_.name -eq "Security Gate" } |
+    Select-Object -ExpandProperty value
+)
+
+# Jenkins overrides
+$sevSecGw = $env:SEV_SEC_GW
+$maxIssuesAllowed = [int]$env:MAX_ISSUES_ALLOWED
+
+# Logout
+Invoke-WebRequest `
+    -WebSession $session `
+    -Headers @{ "Asc_xsrf_token" = "$sessionId" } `
+    -Uri "https://$aseHostname`:9443/ase/api/logout" `
+    -SkipCertificateCheck |
+    Out-Null
+
+# -------------------------------
