@@ -75,3 +75,20 @@ Invoke-WebRequest `
     Out-Null
 
 # -------------------------------
+# Security Gate enabled?
+# -------------------------------
+if ($secGw -eq "Disabled") {
+    Write-Host "Security Gate disabled."
+    exit 0
+}
+
+Write-Host "Security Gate enabled."
+
+# -------------------------------
+# Load AppScan Source result
+# -------------------------------
+[xml]$xml = Get-Content "$aseAppName-$BuildNumber.ozasmt"
+
+# -------------------------------
+# DEFINITIVE HIGH ONLY (critical fix)
+# -------------------------------
