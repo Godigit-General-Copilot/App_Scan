@@ -45,6 +45,7 @@ $sevSecGw=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.
 $maxIssuesAllowed=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.name -eq "Build Failure Amount" } | Select-Object -ExpandProperty value)
 
 $sevSecGw = $env:SEV_SEC_GW
+$sevSecGw2 = $env:SEV_SEC_GW2
 $maxIssuesAllowed = [int]$env:MAX_ISSUES_ALLOWED
  
 Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"} -Uri "https://$aseHostname`:9443/ase/api/logout" -SkipCertificateCheck | Out-Null
