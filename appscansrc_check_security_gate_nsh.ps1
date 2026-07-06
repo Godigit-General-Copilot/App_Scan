@@ -75,7 +75,7 @@ $maxIssuesAllowed = $maxIssuesAllowed -as [int]
  
 write-host "There is $highIssues definitive high issues, $mediumIssues medium issues and $lowIssues low issues."
 
-write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
+write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw $sevSecGw2 severity."
  
 if (( $highIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "highIssues" )) {
 
