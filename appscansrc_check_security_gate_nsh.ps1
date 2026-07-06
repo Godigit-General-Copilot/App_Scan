@@ -65,7 +65,7 @@ write-host "Security Gate enabled.";
 
 [int]$highIssues = $xml.AssessmentRun.AssessmentStats.total_high_high_finding
 
-[int]$mediumIssues = $xml.AssessmentRun.AssessmentStats.total_med_finding
+[int]$mediumIssues = $xml.AssessmentRun.AssessmentStats.total_med_high_finding
 
 [int]$lowIssues = $xml.AssessmentRun.AssessmentStats.total_low_finding
 
@@ -85,7 +85,7 @@ if (( $highIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "highIssues" ))
 
   }
 
-elseif (( $mediumIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "mediumIssues" )) {
+elseif (( $mediumIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw2" -eq "mediumIssues" )) {
 
   write-host "Security Gate build failed";
 
